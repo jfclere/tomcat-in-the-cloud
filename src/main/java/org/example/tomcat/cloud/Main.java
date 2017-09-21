@@ -40,7 +40,7 @@ public class Main {
     private static final Log log = LogFactory.getLog(Main.class);
 
     public static void main(String[] args) throws LifecycleException, IOException {
-        // Maximum logging
+        /* Maximum logging
         Enumeration<String> x = LogManager.getLogManager().getLoggerNames();
         while (x.hasMoreElements()) {
             String s = x.nextElement();
@@ -49,6 +49,7 @@ public class Main {
             for (Handler h : log.getHandlers())
                 h.setLevel(Level.FINE);
         }
+        */
 
         // Embedded Tomcat Configuration:
 

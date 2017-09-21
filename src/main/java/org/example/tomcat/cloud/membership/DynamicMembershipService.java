@@ -48,7 +48,7 @@ public class DynamicMembershipService implements MembershipService, MembershipLi
     public DynamicMembershipService(MemberProvider memberProvider) {
         this.memberProvider = memberProvider;
         //default values
-        properties.setProperty("refreshFrequency", "1000");
+        properties.setProperty("refreshFrequency", "5000");
     }
 
     @Override
@@ -112,7 +112,6 @@ public class DynamicMembershipService implements MembershipService, MembershipLi
         if (memberProvider == null)
             return;
 
-        log.info("fetchMembers()");
         List<? extends Member> members = null;
 
         try {
@@ -126,6 +125,7 @@ public class DynamicMembershipService implements MembershipService, MembershipLi
             log.info("members == null");
             return;
         }
+        log.info("fetchMembers(" + members.size() + ")");
 
         // Add new members & refresh lastHeardFrom timestamp for already known members
         for (Member member : members) {
