@@ -17,6 +17,7 @@
 package org.example.tomcat.cloud;
 
 import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
 import org.apache.catalina.startup.Tomcat;
@@ -24,9 +25,7 @@ import org.apache.catalina.tribes.MembershipService;
 import org.apache.catalina.tribes.group.GroupChannel;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
-import org.example.tomcat.cloud.membership.DynamicMembershipService;
-import org.example.tomcat.cloud.membership.KubernetesMemberProvider;
-import org.example.tomcat.cloud.membership.MemberProvider;
+import org.apache.catalina.tribes.membership.cloud.CloudMembershipService;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +53,8 @@ public class Main {
         // Embedded Tomcat Configuration:
 
         Tomcat tomcat = new Tomcat();
-        tomcat.setPort(8080); // HTTP port for Tomcat; make sure to set the same value in pom.xml
+        // Create the Connector, it is on the default port 8080, make sure to set the same value in pom.xml
+        Connector connector = tomcat.getConnector();
 
         // Servlet Configuration:
         File base = new File(System.getProperty("java.io.tmpdir"));
@@ -71,8 +71,8 @@ public class Main {
         GroupChannel channel = (GroupChannel) cluster.getChannel();
 
         // The interesting part: use DynamicMembershipService (with KubernetesMemberProvider)
-        MemberProvider provider = new KubernetesMemberProvider();
-        MembershipService service = new DynamicMembershipService(provider);
+        // MemberProvider provider = new KubernetesMemberProvider();
+        MembershipService service = new CloudMembershipService();
         channel.setMembershipService(service);
 
         // Start Tomcat

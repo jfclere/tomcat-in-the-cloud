@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>org.example.tomcat.cloud.Main</mainClass>
-        <tomcat.version>8.5.15</tomcat.version>
-        <fabric8.version>3.3.4</fabric8.version>
+        <tomcat.version>9.0.27</tomcat.version>
+        <fabric8.version>4.3.0</fabric8.version>
         <json.version>20170516</json.version>
 
         <!-- OpenShift service customization -->
